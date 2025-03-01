@@ -15,13 +15,14 @@ import { app, server } from "./lib/socket.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
+const host = process.env.HOST;
 const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://172.19.3.48:5173",
     credentials: true,
   })
 );
@@ -37,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-server.listen(PORT, () => {
-  console.log("server is running on PORT:" + PORT);
+server.listen(PORT, host, () => {
+  console.log("server is running on PORT:" + PORT + " HOST:" + host);
   connectDB();
 });
